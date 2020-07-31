@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Knížky{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    {% for label, messages in app.flashes %}
+        {% for message in messages %}
+            <div class="alert alert-{{ label }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endfor %}
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+    <div class="list-group">
+        <a href="{{ path('knihacreate') }}" class="list-group-item list-group-item-action">Přidat novou knihu</a>
+        <a href="{{ path('authorcreate') }}" class="list-group-item list-group-item-action">Přidat nového autora</a>
+    </div>
+    {% endif %}
+    <h4 class="pt-3">Seznam knih</h4>
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Název</th>
+            <th scope="col">Autor</th>
+            <th colspan="2" scope="col">Akce</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for kniha in knihy %}
+        <tr>
+            <th scope="row">{{ kniha.id }}</th>
+            <td><a href="{{ path('knihashow', {id: kniha.id}) }}">{{ kniha.nazev }}</a></td>
+            <td>{{ kniha.author }}</td>
+            <td><a href="{{ path('knihaedit', {id: kniha.id}) }}">Upravit</a></td>
+            <td><a class="text-danger" href="{{ path('knihadelete', {id: kniha.id}) }}">Smazat</a></td>
+        </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+</div>
+{% endblock %}
