@@ -99,6 +99,7 @@ class KnihyController extends AbstractController
         $form->get('nazev')->setData($knihaVybrana->getNazev());
         $form->get('author')->setData($knihaVybrana->getAuthor());
         $form->get('detail')->setData($knihaVybrana->getDetail());
+        $form->get('zanry')->setData($knihaVybrana->getZanry());
         $form->handleRequest($request);
 
 

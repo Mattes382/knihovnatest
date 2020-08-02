@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AdminController!{% endblock %}
+{% block title %}Administrační panel{% endblock %}
 
 {% block body %}
 <style>
@@ -11,6 +11,10 @@
 <div class="example-wrapper">
 
         <h1>Administrační panel</h1>
+        <div class="list-group mt-3">
+                <a href="{{ path('adminuser') }}" class="list-group-item list-group-item-action">Spravovat uživatele</a>
+                <a href="{{ path('adminzanr') }}" class="list-group-item list-group-item-action">Přidat žánr</a>
+        </div>
 
 </div>
 {% endblock %}

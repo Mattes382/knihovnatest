@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Author;
 use App\Entity\Knihy;
+use App\Entity\Zanry;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
@@ -23,6 +24,11 @@ class KnihaEditType extends AbstractType
             ])
             ->add('author', EntityType::class,[
                 'class' => Author::class
+            ])
+            ->add('zanry', EntityType::class,[
+                'class' => Zanry::class,
+                'multiple' => true,
+                'label' => 'Žánry'
             ])
             ->add('detail', TextareaType::class,[
                 'label' => 'Detail'
