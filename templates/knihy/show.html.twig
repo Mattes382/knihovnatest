@@ -12,6 +12,13 @@
         <img src="{{ '../uploads/' ~ kniha.obrazek }}" class="rounded" alt="...">
         <h1>{{ kniha.nazev }}</h1>
         <h3>{{ kniha.author }}</h3>
-        <p>{{ kniha.detail }}</p>
+        <p>Roky vydání: {{ kniha.rokvydani }}</p>
+        <p>Počet stran: {{ kniha.pocetstranek }}</p>
+        <p class="mb-5">{{ kniha.detail }}</p>
+
+        <h4>Žánry</h4>
+        {% for zanr in kniha.zanry%}
+        <p>{{ zanr }}</p>
+        {% endfor %}
     </div>
 {% endblock %}

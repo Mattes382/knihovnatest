@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello AuthorController!{% endblock %}
+{% block title %}Autoři{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,10 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/knihovna/src/Controller/AuthorController.php'|file_link(0) }}">src/Controller/AuthorController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/knihovna/templates/author/index.html.twig'|file_link(0) }}">templates/author/index.html.twig</a></code></li>
-    </ul>
+<h2>Autoři</h2>
+    <h4>Přehled autorů a počet knížek</h4>
+    {% for autor in authors %}
+        <p>{{ autor.jmeno }}({{ autor.pocetknih }})</p>
+    {% endfor %}
 </div>
 {% endblock %}

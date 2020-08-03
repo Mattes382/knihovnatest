@@ -6,14 +6,18 @@ use App\Entity\Author;
 use App\Entity\Knihy;
 use App\Entity\Zanry;
 use App\Repository\AuthorRepository;
+use EasyCorp\Bundle\EasyAdminBundle\Field\IntegerField;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Component\Validator\Constraints\Image;
 
 class KnihaType extends AbstractType
 {
@@ -24,7 +28,16 @@ class KnihaType extends AbstractType
                 'label' => 'Název'
             ])
             ->add('author', EntityType::class,[
-                'class' => Author::class
+                'class' => Author::class,
+                'query_builder' => function(EntityRepository $repository) {
+                    return $repository->createQueryBuilder('a')->orderBy('a.jmeno', 'ASC');
+                }
+            ])
+            ->add('rokvydani', IntegerType::class,[
+                'label' => 'Rok vydání'
+            ])
+            ->add('pocetstranek', IntegerType::class,[
+                'label' => 'Počet stránek'
             ])
             ->add('zanry', EntityType::class,[
                 'class' => Zanry::class,
@@ -36,7 +49,8 @@ class KnihaType extends AbstractType
             ])
             ->add('obrazek', FileType::class, [
                 'label' => 'Obrázek',
-                'mapped' => false
+                'mapped' => false,
+
             ])
             ->add('Add', SubmitType::class, [
                 'attr' => [

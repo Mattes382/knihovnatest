@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Author;
+use App\Entity\Knihy;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,6 +20,17 @@ class AuthorRepository extends ServiceEntityRepository
         parent::__construct($registry, Author::class);
     }
 
+    public function AuthorsBooks()
+    {
+        $qb = $this->createQueryBuilder('a');
+        $qb->select('a.jmeno AS jmeno')
+            ->addSelect('COUNT(k) AS pocetknih')
+            ->innerJoin('App\Entity\Knihy', 'k')
+	->where('a.id = k.author')
+        ->groupBy('a.id')
+        ;
+	    return $qb->getQuery()->getResult();	
+    }
     // /**
     //  * @return Author[] Returns an array of Author objects
     //  */

@@ -27,6 +27,38 @@ class KnihyRepository extends ServiceEntityRepository
             ->getQuery()
             ->execute();
     }
+
+    public function sortByCreatedAtDesc()
+    {
+        return $this->createQueryBuilder('k')
+            ->select('k')
+            ->addOrderBy('k.createdAt', 'DESC')
+            ->getQuery()
+            ->execute();
+    }
+    public function sortByCreatedAtAsc()
+    {
+        return $this->createQueryBuilder('k')
+            ->select('k')
+            ->addOrderBy('k.createdAt', 'ASC')
+            ->getQuery()
+            ->execute();
+    }
+
+    public function findAuthorById($id)
+    {
+        return $this->getEntityManager()
+            ->createQuery(
+                'SELECT a, k FROM AppBundle:Author a ' .
+                'WHERE k.author=:authorId'
+            )->setParameter('authorId', $id)
+            ->getResult();
+    }
+
+    public function findZanrById($id)
+    {
+
+    }
     // /**
     //  * @return Knihy[] Returns an array of Knihy objects
     //  */

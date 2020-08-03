@@ -22,9 +22,24 @@ class KnihyController extends AbstractController
     /**
      * @Route("", name="index")
      */
-    public function index(KnihyRepository $knihyRepository)
+    public function index(Request $request, KnihyRepository $knihyRepository)
     {
-        $knihy = $knihyRepository->findAll();
+        $filtr = $request->query->get('filter');
+        $autor = $request->query->get('autor');
+        $zanr = $request->query->get('zanr');
+
+        if($filtr == true){
+            if($autor != null){
+                $knihy =  $knihyRepository->findAuthorById($autor);
+            }
+            if($zanr != null){
+                $knihy =  $knihyRepository->findZanrById($zanr);
+            }
+        } else {
+            $knihy =  $knihyRepository->sortByCreatedAtDesc();
+        }
+
+
 
         return $this->render('knihy/index.html.twig', [
             'knihy' => $knihy

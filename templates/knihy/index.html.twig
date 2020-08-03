@@ -6,6 +6,30 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .row col-sm-5 { max-width: 100px; }
+
+    .row p {
+        word-break: break-all;
+    }
+    .card-block {
+        font-size: 1em;
+        position: relative;
+        margin: 0;
+        padding: 1em;
+        border: none;
+        border-top: 1px solid rgba(34, 36, 38, .1);
+        box-shadow: none;
+
+    }
+    .card {
+        font-size: 1em;
+        overflow: hidden;
+        padding: 5;
+        border: none;
+        border-radius: .28571429rem;
+        box-shadow: 0 1px 3px 0 #d4d4d5, 0 0 0 1px #d4d4d5;
+        margin-top:20px;
+    }
 </style>
 
 <div class="example-wrapper">
@@ -16,17 +40,13 @@
             </div>
         {% endfor %}
     {% endfor %}
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-    <div class="list-group">
-        <a href="{{ path('knihacreate') }}" class="list-group-item list-group-item-action">Přidat novou knihu</a>
-        <a href="{{ path('authorcreate') }}" class="list-group-item list-group-item-action">Přidat nového autora</a>
-    </div>
-    {% endif %}
+
     <h4 class="pt-3">Seznam knih</h4>
-    <table class="table">
+  <!--  <table class="table">
         <thead>
         <tr>
             <th scope="col">ID</th>
+            <th scope="col">Obrázek</th>
             <th scope="col">Název</th>
             <th scope="col">Autor</th>
             <th colspan="2" scope="col">Akce</th>
@@ -36,6 +56,7 @@
         {% for kniha in knihy %}
         <tr>
             <th scope="row">{{ kniha.id }}</th>
+            <td><img src="{{ 'uploads/' ~ kniha.obrazek }}" alt=""></td>
             <td><a href="{{ path('knihashow', {id: kniha.id}) }}">{{ kniha.nazev }}</a></td>
             <td>{{ kniha.author }}</td>
             <td><a href="{{ path('knihaedit', {id: kniha.id}) }}">Upravit</a></td>
@@ -43,6 +64,20 @@
         </tr>
         {% endfor %}
         </tbody>
-        </table>
-</div>
+        </table> -->
+    {% for kniha in knihy %}
+    <div class="row">
+        <div class="col-sm-5">
+            <img class="d-block w-100" src="{{ 'uploads/' ~ kniha.obrazek }}" alt="">
+        </div>
+        <div class="col-sm-7">
+            <div class="card-block">
+                           <h3 class="card-title"><a href="{{ path('knihashow', {id: kniha.id}) }}">{{ kniha.nazev }}</a></h3>
+                <p>{{ kniha.detail|length > 250 ? kniha.detail|slice(0, 250) ~ '...' : kniha.detail  }}</p>
+                <br>
+
+            </div>
+        </div>
+            {% endfor %}
+
 {% endblock %}

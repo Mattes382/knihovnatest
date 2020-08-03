@@ -1,4 +1,7 @@
 {
+    "behat/transliterator": {
+        "version": "v1.3.0"
+    },
     "composer/package-versions-deprecated": {
         "version": "1.10.99"
     },
@@ -96,6 +99,9 @@
     },
     "egulias/email-validator": {
         "version": "2.1.18"
+    },
+    "gedmo/doctrine-extensions": {
+        "version": "v2.4.41"
     },
     "jms/metadata": {
         "version": "2.3.0"

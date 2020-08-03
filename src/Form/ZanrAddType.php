@@ -2,26 +2,26 @@
 
 namespace App\Form;
 
+use App\Entity\Zanry;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class AuthorType extends AbstractType
+class ZanrAddType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('jmeno', TextType::class,[
-                'label' => 'Celé jméno'
+            ->add('Nazev', TextType::class,[
+                'label' => 'Název'
             ])
-            ->add('Add', SubmitType::class, [
+            ->add('upravit', SubmitType::class, [
                 'attr' => [
                     'class' => 'btn btn-success float-right'
                 ],
-                'label' => 'Přidat nového autora'
+                'label' => 'Přidat žánr'
             ])
         ;
     }
@@ -29,7 +29,7 @@ class AuthorType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            'data_class' => Zanry::class,
         ]);
     }
 }
